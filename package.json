@@ -1,0 +1,8 @@
+{
+  "name": "opl-car-generator",
+  "private": true,
+  "scripts": {
+    "check": "npm --prefix frontend run lint && npm --prefix frontend run build && uv run --locked --project backend ruff check backend && uv run --locked --project backend ruff format --check backend && uv run --locked --project backend ty check --project backend",
+    "test": "uv run --locked --project backend python -m pytest backend/tests"
+  }
+}

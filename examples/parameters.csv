@@ -1,0 +1,7 @@
+parameter,value,unit
+mass,200,kg
+max_power_kw,80,kW
+max_torque_nm,240,Nm
+rev_limit_rpm,6000,rpm
+cl,3,
+cd,1.3,

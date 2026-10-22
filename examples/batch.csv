@@ -1,0 +1,3 @@
+name,mass,max_power_kw,max_torque_nm,rev_limit_rpm
+RFR_Light,200 kg,80 kW,240 Nm,6000 rpm
+RFR_Endurance,440 lb,75 kW,220 Nm,5500 rpm

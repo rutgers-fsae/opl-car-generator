@@ -1,0 +1,20 @@
+[project]
+name = "opl-car-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["fastapi", "uvicorn[standard]", "python-multipart"]
+
+[dependency-groups]
+dev = ["pytest", "httpx", "ruff", "ty"]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ty.environment]
+extra-paths = [".."]
+
+[tool.ty.src]
+include = ["app"]
