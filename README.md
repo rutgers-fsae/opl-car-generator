@@ -30,9 +30,9 @@ The Python virtual environment is `backend/.venv`. Local account data lives unde
 docker compose -f docker-compose.prod.yml up --build -d
 ```
 
-Point the existing HTTPS reverse proxy at `http://127.0.0.1:8080`. Serve the app at the hostname root, not a subpath. The frontend's Nginx serves the SPA and proxies `/api/` to the backend on the private Compose network. The backend has no public port in production. Production sessions require HTTPS (`Secure`, `HttpOnly`, `SameSite=Strict` cookies).
+Point the existing HTTPS reverse proxy on the other machine at `http://DOCKER_VM_PRIVATE_IP:8081`. Serve the app at the hostname root, not a subpath. The frontend's Nginx serves the SPA and proxies `/api/` to the backend on the private Compose network. The backend has no public port in production. Production sessions require HTTPS (`Secure`, `HttpOnly`, `SameSite=Strict` cookies).
 
-The host port binds to loopback; set `APP_PORT` to change it from 8080. If the reverse proxy runs in another container, attach it to the Compose network and proxy to `frontend:80`, or adapt the port binding to the proxy's reachable private address. Keep TLS termination at the outer proxy. Login/registration are limited to 20 attempts per minute per directly connected address in one backend process; configure the outer proxy's per-client rate limits for a larger deployment.
+The frontend binds to all IPv4 interfaces on port 8081 by default, avoiding DAQ's port 8080. Set `APP_BIND_ADDRESS` to the Docker VM's private interface IP to restrict the binding, and `APP_PORT` to change the port. Restrict inbound access to that port to the reverse proxy machine. Keep TLS termination at the outer proxy. Login/registration are limited to 20 attempts per minute per directly connected address in one backend process; configure the outer proxy's per-client rate limits for a larger deployment.
 
 Only accounts, hashed sessions, and user-owned presets are persisted. Uploads are processed temporarily and removed; generated files download directly. Back up the `car-data` volume. To create a consistent SQLite backup while the service is running:
 
